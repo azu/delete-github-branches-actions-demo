@@ -4,8 +4,8 @@ on:
   schedule:
     # At 00:00 everyday
     - cron:  '*/0 0 * * *'
-  pullrequest:
-    - "*"
+  pull_request:
+    - "master"
 
 jobs:
   delete-branch:
