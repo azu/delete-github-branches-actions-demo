@@ -48,16 +48,15 @@ jobs:
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Comment
+      - uses: actions/github-script@0.8.0
         if: steps.check_branch_name.outputs.invalid_branch_name == 'true'
-        uses: actions/github-script@0.8.0
-          with:
-            github-token: ${{secrets.GITHUB_TOKEN}}
-            script: |
-              github.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: "@${{ github.actor }} This branch will be deleted in the future because the branch name is invalid.<br/>${{steps.check_branch_name.outputs.message}"
-              })
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "@${{ github.actor }} This branch will be deleted in the future because the branch name is invalid.<br/>${{steps.check_branch_name.outputs.message}"
+            })
 
