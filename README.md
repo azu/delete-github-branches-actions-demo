@@ -11,4 +11,4 @@ See <https://github.com/azu/delete-github-branches-actions-demo/blob/master/.git
 ## Features
 
 - Cron: Delete branch automatic
-- Check PR: Check Pull Request branch naming
+- PR: Check Pull Request branch naming
