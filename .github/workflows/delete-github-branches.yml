@@ -1,11 +1,10 @@
 name: dele-github-branches
 
 on:
-  schedule:
-    # At 00:00 everyday
-    - cron:  '*/0 0 * * *'
   pull_request:
-    - "master"
+  # At 00:00 everyday
+  schedule:
+    - cron: '*/0 0 * * *'
 
 jobs:
   delete-branch:
