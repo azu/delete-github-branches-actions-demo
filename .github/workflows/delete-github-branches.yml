@@ -27,7 +27,7 @@ jobs:
 
   check-pull-request-branch:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pullrequest'
+    if: github.event_name == 'pull_request'
     strategy:
       matrix:
         node-version: [12.x]
