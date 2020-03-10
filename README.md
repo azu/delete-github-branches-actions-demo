@@ -4,10 +4,7 @@ GitHub Actions + [delete-github-branches](https://github.com/azu/delete-github-b
 
 Automatic delete irregular git branch.
 
-## Cron Delete
+## Features
 
-- [ ] 
-
-## Pull Request Check
-
-- [ ] 
+- Cron: Delete branch automatic
+- Check PR: Check Pull Request branch naming
