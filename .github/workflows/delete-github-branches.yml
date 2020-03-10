@@ -66,6 +66,6 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "@${{ github.actor }} This branch will be deleted in the future because the branch name is invalid.<br/>${{steps.check_branch_name.outputs.message}}"
+              body: "@${{ github.actor }} This branch will be deleted in the future because the branch name is invalid.<br/>`${{steps.check_branch_name.outputs.message}}`"
             })
 
