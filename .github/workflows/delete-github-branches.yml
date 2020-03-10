@@ -4,7 +4,7 @@ on:
   schedule:
     # At 00:00 everyday
     - cron:  '*/0 0 * * *'
-  pull_request:
+  pullrequest:
     - "*"
 
 jobs:
@@ -27,7 +27,7 @@ jobs:
 
   check-pull-request-branch:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pullrequest'
     strategy:
       matrix:
         node-version: [12.x]
