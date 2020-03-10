@@ -4,6 +4,10 @@ GitHub Actions + [delete-github-branches](https://github.com/azu/delete-github-b
 
 Automatic delete irregular git branch.
 
+## GitHub Actions
+
+See <https://github.com/azu/delete-github-branches-actions-demo/blob/master/.github/workflows/delete-github-branches.yml>
+
 ## Features
 
 - Cron: Delete branch automatic
