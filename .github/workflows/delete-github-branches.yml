@@ -46,6 +46,7 @@ jobs:
           if [ $? -ne 0 ]; then
               echo "::set-output name=message::${RESULT_DELETE_GITHUB_BRANCH}"
               echo "::set-output name=invalid_branch_name::true"
+              echo "this branch name is invalid"
               exit 0
           fi
           echo "${RESULT_DELETE_GITHUB_BRANCH}"
