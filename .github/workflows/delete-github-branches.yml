@@ -1,4 +1,4 @@
-name: dele-github-branches
+name: delete-github-branches
 
 on:
   pull_request:
