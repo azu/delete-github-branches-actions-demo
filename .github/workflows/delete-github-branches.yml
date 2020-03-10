@@ -42,7 +42,8 @@ jobs:
         id: check_branch_name
         run: |
           echo "GITHUB_BRANCH: ${BRANCH_NAME}"
-          export RESULT_DELETE_GITHUB_BRANCH=$(npx -p delete-github-branches delete-github-branches-check-branch-name --config ./.github/delete-github-branches.json "${BRANCH_NAME}")
+          npm install -g delete-github-branches
+          RESULT_DELETE_GITHUB_BRANCH=$(delete-github-branches-check-branch-name --config ./.github/delete-github-branches.json "${BRANCH_NAME}")
           RET=$?
           if [ "$RET" = "1" ]; then
               echo "::set-output name=message::${RESULT_DELETE_GITHUB_BRANCH}"
