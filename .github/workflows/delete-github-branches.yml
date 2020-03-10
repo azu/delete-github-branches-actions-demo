@@ -43,7 +43,8 @@ jobs:
         run: |
           echo "GITHUB_BRANCH: ${BRANCH_NAME}"
           export RESULT_DELETE_GITHUB_BRANCH=$(npx -p delete-github-branches delete-github-branches-check-branch-name --config ./.github/delete-github-branches.json "${BRANCH_NAME}")
-          if [ $? -ne 0 ]; then
+          RET=$?
+          if [ $RET -ne 0 ]; then
               echo "::set-output name=message::${RESULT_DELETE_GITHUB_BRANCH}"
               echo "::set-output name=invalid_branch_name::true"
               echo "this branch name is invalid"
