@@ -1,0 +1,12 @@
+{
+  "owner": "azu",
+  "repo": "delete-github-branches-actions-demo",
+  "excludesBranchPatterns": [
+    "master",
+    "develop",
+    "gh-pages",
+    "/^feature\/.*$/",
+    "/^renovate\/.*$/"
+  ],
+  "stalledDays": 30
+}
