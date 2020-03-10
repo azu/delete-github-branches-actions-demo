@@ -4,7 +4,7 @@ on:
   pull_request:
   # At 00:00 everyday
   schedule:
-    - cron: '*/0 0 * * *'
+    - cron: '0 0 * * *'
 
 jobs:
   delete-branch:
