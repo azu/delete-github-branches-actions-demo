@@ -12,3 +12,7 @@ See <https://github.com/azu/delete-github-branches-actions-demo/blob/master/.git
 
 - Cron: Delete branch automatic
 - PR: Check Pull Request branch naming
+
+## License 
+
+MIT
