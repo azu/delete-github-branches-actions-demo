@@ -37,19 +37,24 @@ jobs:
         with:
           node_version: ${{ matrix.node_version }}
       - name: Check branch name
+        id: check_branch_name
         run: |
           export GITHUB_BRANCH=${GITHUB_REF##*heads/}
-          npx -p delete-github-branches delete-github-branches-check-branch-name --config ./.github/delete-github-branches.json "${GITHUB_BRANCH}"
+          export RESULT_DELETE_GITHUB_BRANCH=$(npx -p delete-github-branches delete-github-branches-check-branch-name --config ./.github/delete-github-branches.json "${GITHUB_BRANCH}")
+          echo "::set-output name=message::${RESULT_DELETE_GITHUB_BRANCH}"
+          if [ $? -ne 0 ]; then
+              echo "::set-output name=invalid_branch_name::true"
+              exit 0
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Comment
+        if: steps.check_branch_name.outputs.invalid_branch_name == 'true'
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/github@master
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            with:
+              args: comment "@${{ github.actor }} This branch will be deleted in the future because the branch name is invalid.<br/>${{steps.check_branch_name.outputs.message}"
 
-  check-pull-request-branch-fail-comment:
-    if: failure()
-    needs: check-pull-request-branch
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/github-script@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          args: comment "@${{ github.actor }} This branch will be deleted in the future because the branch name is invalid."
