@@ -41,7 +41,7 @@ jobs:
       - name: Check branch name
         id: check_branch_name
         run: |
-          export GITHUB_BRANCH=${GITHUB_REF##*heads/}
+          export GITHUB_BRANCH=${GITHUB_REF#refs/heads/}
           export RESULT_DELETE_GITHUB_BRANCH=$(npx -p delete-github-branches delete-github-branches-check-branch-name --config ./.github/delete-github-branches.json "${GITHUB_BRANCH}")
           echo "::set-output name=message::${RESULT_DELETE_GITHUB_BRANCH}"
           if [ $? -ne 0 ]; then
