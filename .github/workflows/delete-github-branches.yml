@@ -41,9 +41,8 @@ jobs:
       - name: Check branch name
         id: check_branch_name
         run: |
-          export GITHUB_BRANCH="${GITHUB_REF#refs/heads/}"
-          echo "GITHUB_BRANCH: ${GITHUB_BRANCH}"
-          export RESULT_DELETE_GITHUB_BRANCH=$(npx -p delete-github-branches delete-github-branches-check-branch-name --config ./.github/delete-github-branches.json "${GITHUB_BRANCH}")
+          echo "GITHUB_BRANCH: ${BRANCH_NAME}"
+          export RESULT_DELETE_GITHUB_BRANCH=$(npx -p delete-github-branches delete-github-branches-check-branch-name --config ./.github/delete-github-branches.json "${BRANCH_NAME}")
           if [ $? -ne 0 ]; then
               echo "::set-output name=message::${RESULT_DELETE_GITHUB_BRANCH}"
               echo "::set-output name=invalid_branch_name::true"
@@ -51,6 +50,7 @@ jobs:
           fi
           echo "${RESULT_DELETE_GITHUB_BRANCH}"
         env:
+          BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/github-script@0.8.0
         if: steps.check_branch_name.outputs.invalid_branch_name == 'true'
