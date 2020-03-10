@@ -40,6 +40,7 @@ jobs:
           node_version: ${{ matrix.node_version }}
       - name: Check branch name
         id: check_branch_name
+        shell: bash -x {0}
         run: |
           echo "GITHUB_BRANCH: ${BRANCH_NAME}"
           npm install -g delete-github-branches
