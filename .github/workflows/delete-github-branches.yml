@@ -67,6 +67,6 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "@${{ github.actor }} This branch name is mismatch branch naming rule.<br/>`${{steps.check_branch_name.outputs.message}}`"
+              body: "@${{ github.actor }} This branch name is mismatch branch naming rule.<br/>```\n${{steps.check_branch_name.outputs.message}}\n```"
             })
 
