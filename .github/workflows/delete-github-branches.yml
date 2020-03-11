@@ -11,39 +11,36 @@ jobs:
   delete-branch:
     runs-on: ubuntu-latest
     if: github.event_name == 'schedule'
-    strategy:
-      matrix:
-        node-version: [12.x]
-    steps:
-      - name: Setup Node ${{ matrix.node_version }}
-        uses: actions/setup-node@v1
-        with:
-          node_version: ${{ matrix.node_version }}
-      - name: Run delete-github-branches
-        run: |
-          npx delete-github-branches --config ./.github/delete-github-branches.json
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  check-pull-request-branch:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    strategy:
-      matrix:
-        node-version: [12.x]
     steps:
       - name: checkout
         uses: actions/checkout@v2
       - name: Setup Node ${{ matrix.node_version }}
         uses: actions/setup-node@v1
         with:
-          node_version: ${{ matrix.node_version }}
+          node_version: 12.x
+      - name: Run delete-github-branches
+        run: |
+          npm install -g delete-github-branches@1
+          delete-github-branches --config ./.github/delete-github-branches.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  check-pull-request-branch:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: Setup Node ${{ matrix.node_version }}
+        uses: actions/setup-node@v1
+        with:
+          node_version: 12.x
       - name: Check branch name
         id: check_branch_name
         shell: bash -x {0}
         run: |
           echo "GITHUB_BRANCH: ${BRANCH_NAME}"
-          npm install -g delete-github-branches
+          npm install -g delete-github-branches@1
           RESULT_DELETE_GITHUB_BRANCH=$(delete-github-branches-check-branch-name --config ./.github/delete-github-branches.json "${BRANCH_NAME}")
           RET=$?
           if [ "$RET" = "1" ]; then
