@@ -44,6 +44,10 @@ jobs:
           RESULT_DELETE_GITHUB_BRANCH=$(delete-github-branches-check-branch-name --config ./.github/delete-github-branches.json "${BRANCH_NAME}")
           RET=$?
           if [ "$RET" = "1" ]; then
+              # multi-line issue https://github.community/t5/GitHub-Actions/set-output-Truncates-Multiline-Strings/td-p/37870
+              RESULT_DELETE_GITHUB_BRANCH="${RESULT_DELETE_GITHUB_BRANCH//'%'/'%25'}"
+              RESULT_DELETE_GITHUB_BRANCH="${RESULT_DELETE_GITHUB_BRANCH//$'\n'/'%0A'}"
+              RESULT_DELETE_GITHUB_BRANCH="${RESULT_DELETE_GITHUB_BRANCH//$'\r'/'%0D'}"
               echo "::set-output name=message::${RESULT_DELETE_GITHUB_BRANCH}"
               echo "::set-output name=invalid_branch_name::true"
               echo "this branch name is invalid"
