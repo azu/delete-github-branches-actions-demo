@@ -46,8 +46,8 @@ jobs:
           if [ "$RET" = "1" ]; then
               # multi-line issue https://github.community/t5/GitHub-Actions/set-output-Truncates-Multiline-Strings/td-p/37870
               RESULT_DELETE_GITHUB_BRANCH="${RESULT_DELETE_GITHUB_BRANCH//'%'/'%25'}"
-              RESULT_DELETE_GITHUB_BRANCH="${RESULT_DELETE_GITHUB_BRANCH//$'\n'/'%0A'}"
-              RESULT_DELETE_GITHUB_BRANCH="${RESULT_DELETE_GITHUB_BRANCH//$'\r'/'%0D'}"
+              RESULT_DELETE_GITHUB_BRANCH="${RESULT_DELETE_GITHUB_BRANCH//$'\n'/'\\n'}"
+              RESULT_DELETE_GITHUB_BRANCH="${RESULT_DELETE_GITHUB_BRANCH//$'\r'/'\\r'}"
               echo "::set-output name=message::${RESULT_DELETE_GITHUB_BRANCH}"
               echo "::set-output name=invalid_branch_name::true"
               echo "this branch name is invalid"
@@ -67,6 +67,6 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "@${{ github.actor }} This branch name is mismatch branch naming rule.<br/>```${{steps.check_branch_name.outputs.message}}```"
+              body: `@${{ github.actor }} This branch name is mismatch branch naming rule.<br/>```${{steps.check_branch_name.outputs.message}}```"
             })
 
