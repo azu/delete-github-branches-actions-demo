@@ -8,5 +8,5 @@
     "/^feature\/.*$/",
     "/^renovate\/.*$/"
   ],
-  "stalledDays": 30
+  "stalledDays": 0
 }
